@@ -22,6 +22,20 @@
   font-size: large;
 }
 
+#Field-Container {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 70vw;  
+}
+
+.MyTextField {
+  width: 400px;
+  height: 70px;
+  font-size: 10em;
+  margin: 30px;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
