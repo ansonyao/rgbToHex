@@ -1,38 +1,39 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import logo from '../../logo.svg';
-import './style.css';
 
 export default class MainPage extends React.Component {
     render() {
-        return(
-            <div className = "App" style={{marginBottom: 400}}>
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">RGB &lt;====&gt; HEX</h1>
-                </header>
+        return (
+            <div style={{ textAlign: 'center' }}>
+                <div style={{ width: '100%', height: 100, backgroundColor: '#FF5722' }}>
+                    <div style={{ paddingTop: 20 }}>
+                        <text style={{ color: 'white', fontSize: 60, fontWeight: 'bold' }}>RGB &lt;====&gt; HEX</text>
+                    </div>
+                </div>
                 <div>
-            </div>
+                </div>
 
-                {/* <div id="Field-Container"> */}
+                <div style={{ marginTop: 200 }}>
                     <TextField
                         className="MyTextField"
-                        hintText="HEX"
+                        hintText="Value like #000000, 0x000000, or 000000, "
                         floatingLabelText="HEX"
-                        style={{width: 400, height: 150, fontSize: 55}}
-                        floatingLabelFocusStyle={{marginBottom: 40, fontSize: 45}}
-                        hintStyle={{fontSize: 55, marginBottom: 30}}
+                        style={{ width: 400, height: 150, fontSize: 55, margin: 30 }}
+                        floatingLabelFocusStyle={{ marginBottom: 40, fontSize: 45 }}
+                        hintStyle={{ fontSize: 15, marginBottom: 30 }}
+                        floatingLabelFixed={true}
                     />
-                    <span/>
                     <TextField
                         className="MyTextField"
-                        hintText="RGB"
+                        hintText="Value like rgb(0, 0, 0) or simply 0, 0, 0 or 0 0 0"
                         floatingLabelText="RGB"
-                        style={{width: 400, height: 150, fontSize: 55}}
-                        floatingLabelFocusStyle={{marginBottom: 40, fontSize: 45}}
-                        hintStyle={{fontSize: 55, marginBottom: 30}}
+                        style={{ width: 400, height: 150, fontSize: 55, margin: 30 }}
+                        floatingLabelFocusStyle={{ marginBottom: 40, fontSize: 45 }}
+                        hintStyle={{ fontSize: 15, marginBottom: 30 }}
+                        floatingLabelFixed={true}
                     />
-                {/* </div> */}
+                </div>
             </div>
         )
     }
