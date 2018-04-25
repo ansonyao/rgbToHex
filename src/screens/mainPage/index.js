@@ -1,7 +1,7 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import logo from '../logo.svg';
-import '../App.css';
+import logo from '../../logo.svg';
+import './style.css';
 
 const MainPage = () => (
     <div className="App">
