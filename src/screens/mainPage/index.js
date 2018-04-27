@@ -35,6 +35,7 @@ export default class MainPage extends React.Component {
                         floatingLabelFixed={true}
                         onChange={(event, value) => {
                             this.setState({rgbValue: value})
+                            this.convertRgbToHex(value)
                         }}
                         value={this.state.rgbValue}
                     />
@@ -63,6 +64,20 @@ export default class MainPage extends React.Component {
         if (!rgb) {
             return
         }
+        console.log("rgb " + rgb)
+        let regex = /^(\d{1,3})[ ,]*(\d{1,3})[ ,]*(\d{1,3})$/
+        const regexResult =regex.exec(rgb)
+        console.log("regexResult " + regexResult)
+        if(regexResult && regexResult.length > 0) {
+            const hexDict = {
+                r: this.decimalValueToHexString(parseInt(regexResult[1], 10)),
+                g: this.decimalValueToHexString(parseInt(regexResult[2], 10)),
+                b: this.decimalValueToHexString(parseInt(regexResult[3], 10))
+            }
+            const result = `#${hexDict.r}${hexDict.g}${hexDict.b}`
+            this.setState({hexValue: result})
+        }
+
 
         // If it can be converted {}
         // then setState for hexValue
@@ -75,7 +90,7 @@ export default class MainPage extends React.Component {
             return
         }
         console.log("value of hex" + hex)
-        const regex = /^[A-Fa-f0-9]{6}$/
+        const regex = /^[A-Fa-f0-9]{6}$/ //TODO: need to handle the case when hex only has 3 characters. 
         const regexResult = regex.exec(hex)
         console.log("value of regexResult" + regexResult)
         if (regexResult && regexResult.length > 0) {
@@ -103,5 +118,16 @@ export default class MainPage extends React.Component {
             g: parseInt(result[2], 16),
             b: parseInt(result[3], 16)
         } : null;
+    }
+
+    decimalValueToHexString = (value) => {
+        let result = value.toString(16)
+        if (result.length === 1) {
+            result = "0" + result
+        }
+        if (result.length > 2 || result.length < 1) {
+            console.log("Error in decimalValueToHexString")
+        }
+        return result
     }
 };
