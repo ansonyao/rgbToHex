@@ -50,6 +50,7 @@ export default class MainPage extends React.Component {
                         floatingLabelFixed={true}
                         onChange={(event, value) => {
                             this.setState({hexValue: value})
+                            this.convertHexToRgb(value)
                         }}
                         value={this.state.hexValue}
                     />
@@ -59,7 +60,7 @@ export default class MainPage extends React.Component {
     }
 
     convertRgbToHex = (rgb) => {
-        if (rgb) {
+        if (!rgb) {
             return
         }
 
@@ -70,13 +71,37 @@ export default class MainPage extends React.Component {
     }
 
     convertHexToRgb = (hex) => {
-        if (hex) {
+        if (!hex) {
             return
         }
-
+        console.log("value of hex" + hex)
+        const regex = /^[A-Fa-f0-9]{6}$/
+        const regexResult = regex.exec(hex)
+        console.log("value of regexResult" + regexResult)
+        if (regexResult && regexResult.length > 0) {
+            const matchedString = regexResult[0]
+            console.log("value of matchedString " + matchedString)
+            const rgbDict = this.hexStringToRgbString(matchedString)
+            if (rgbDict) {
+                this.setState({rgbValue : `${rgbDict.r}, ${rgbDict.g}, ${rgbDict.b}`})
+            }
+        }
+        
         // If it can be converted {}
         // then setState for rgbValue
         // else 
         // setState for hexError
+    }
+
+
+    hexStringToRgbString = (hexString) => {
+        let regex = /^([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})$/
+        var result = regex.exec(hexString)
+        console.log("result is " + result)
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
     }
 };
