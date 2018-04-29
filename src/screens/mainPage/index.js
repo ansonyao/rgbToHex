@@ -16,7 +16,7 @@ export default class MainPage extends React.Component {
             <div style={{ textAlign: 'center' }}>
                 <div style={{ width: '100%', height: 100, backgroundColor: '#FF5722' }}>
                     <div style={{ paddingTop: 20 }}>
-                        <text style={{ color: 'white', fontSize: 60, fontWeight: 'bold' }}>RGB &lt;====&gt; HEX</text>
+                        <text style={{ color: 'white', fontSize: 60, fontWeight: 'bold' }}>RGB &lt;==&gt; HEX</text>
                     </div>
                 </div>
                 <div>
