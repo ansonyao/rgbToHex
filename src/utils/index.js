@@ -34,6 +34,7 @@ const convertHexToRgb = (hex) => {
     }
 }
 
+
 const hexStringToRgbString = (hexString) => {
     let regex = /^([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})$/
     var result = regex.exec(hexString)
