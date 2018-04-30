@@ -1,5 +1,6 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
+import { convertRgbToHex,  convertHexToRgb,  hexStringToRgbString, decimalValueToHexString } from '../../utils/index'
 
 export default class MainPage extends React.Component {
     constructor(props) {
@@ -35,7 +36,7 @@ export default class MainPage extends React.Component {
                         floatingLabelFixed={true}
                         onChange={(event, value) => {
                             this.setState({rgbValue: value})
-                            this.convertRgbToHex(value)
+                            this._convertRgbToHex(value)
                         }}
                         value={this.state.rgbValue}
                     />
@@ -51,7 +52,7 @@ export default class MainPage extends React.Component {
                         floatingLabelFixed={true}
                         onChange={(event, value) => {
                             this.setState({hexValue: value})
-                            this.convertHexToRgb(value)
+                            this._convertHexToRgb(value)
                         }}
                         value={this.state.hexValue}
                     />
@@ -60,74 +61,17 @@ export default class MainPage extends React.Component {
         )
     }
 
-    convertRgbToHex = (rgb) => {
-        if (!rgb) {
-            return
-        }
-        console.log("rgb " + rgb)
-        let regex = /^(\d{1,3})[ ,]*(\d{1,3})[ ,]*(\d{1,3})$/
-        const regexResult =regex.exec(rgb)
-        console.log("regexResult " + regexResult)
-        if(regexResult && regexResult.length > 0) {
-            const hexDict = {
-                r: this.decimalValueToHexString(parseInt(regexResult[1], 10)),
-                g: this.decimalValueToHexString(parseInt(regexResult[2], 10)),
-                b: this.decimalValueToHexString(parseInt(regexResult[3], 10))
-            }
-            const result = `#${hexDict.r}${hexDict.g}${hexDict.b}`
+    _convertRgbToHex = (rgb) => {
+        let result = convertRgbToHex(rgb)
+        if (result) {
             this.setState({hexValue: result})
         }
-
-
-        // If it can be converted {}
-        // then setState for hexValue
-        // else 
-        // setState for hexError
     }
 
-    convertHexToRgb = (hex) => {
-        if (!hex) {
-            return
+    _convertHexToRgb = (hex) => {
+        let result = convertHexToRgb(hex)
+        if (result) {
+            this.setState({rgbValue: result})
         }
-        console.log("value of hex" + hex)
-        const regex = /^[A-Fa-f0-9]{6}$/ //TODO: need to handle the case when hex only has 3 characters. 
-        const regexResult = regex.exec(hex)
-        console.log("value of regexResult" + regexResult)
-        if (regexResult && regexResult.length > 0) {
-            const matchedString = regexResult[0]
-            console.log("value of matchedString " + matchedString)
-            const rgbDict = this.hexStringToRgbString(matchedString)
-            if (rgbDict) {
-                this.setState({rgbValue : `${rgbDict.r}, ${rgbDict.g}, ${rgbDict.b}`})
-            }
-        }
-        
-        // If it can be converted {}
-        // then setState for rgbValue
-        // else 
-        // setState for hexError
-    }
-
-
-    hexStringToRgbString = (hexString) => {
-        let regex = /^([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})$/
-        var result = regex.exec(hexString)
-        console.log("result is " + result)
-        return result ? {
-            r: parseInt(result[1], 16),
-            g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16)
-        } : null;
-    }
-
-    decimalValueToHexString = (value) => {
-        let result = value.toString(16)
-        if (result.length === 1) {
-            result = "0" + result
-        }
-        if (result.length > 2 || result.length < 1) {
-            console.log("Error in decimalValueToHexString")
-        }
-        return result
     }
 };
