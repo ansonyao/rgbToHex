@@ -17,20 +17,46 @@ const convertRgbToHex = (rgb) => {
 }
 
 const convertHexToRgb = (hex) => {
-    if (!hex) {
-        return
-    }
-    console.log("value of hex" + hex)
-    const regex = /^[A-Fa-f0-9]{6}$/ //TODO: need to handle the case when hex only has 3 characters. 
-    const regexResult = regex.exec(hex)
-    console.log("value of regexResult" + regexResult)
-    if (regexResult && regexResult.length > 0) {
-        const matchedString = regexResult[0]
-        console.log("value of matchedString " + matchedString)
+    if (!hex) { return }
+    let matchedString = findLength6HexString(hex)
+    if (matchedString) {
         const rgbDict = hexStringToRgbString(matchedString)
         if (rgbDict) {
             return `${rgbDict.r}, ${rgbDict.g}, ${rgbDict.b}`
         }
+    } else {
+        matchedString = findLength3HexString(hex)
+        const rgbDict = hexStringToRgbString(matchedString)
+        if (rgbDict) {
+            return `${rgbDict.r}, ${rgbDict.g}, ${rgbDict.b}`
+        }
+    }
+}
+
+const findLength6HexString = (hex) => {
+    const regex = /^.*([A-Fa-f0-9]{6}).*$/ //When it is hex string of 6 characters 
+    const regexResult = regex.exec(hex)
+    if (regexResult && regexResult.length > 0) {
+        return  regexResult[1]
+    } else {
+        return null
+    }
+}
+
+const findLength3HexString = (hex) => {
+    const regex = /^.*([A-Fa-f0-9]{3}).*$/ //When it is hex string of 3 characters. 
+    const regexResult = regex.exec(hex)
+    if (regexResult && regexResult.length > 0) {
+        const matchedString = regexResult[1]
+        let result = ""
+        for (let i = 0; i < matchedString.length; i++) {
+            result += matchedString.charAt(i)
+            result += matchedString.charAt(i)
+        }
+        return result
+    }
+    else {
+        return null
     }
 }
 
