@@ -23,3 +23,13 @@ test('convert Rgb to hex rgba(0, 0, 0, 1)', () => {
 test('convert Rgb to hex rgba(255, 255, 255, 1)', () => {
     expect(convertRgbToHex('rgba(255, 255, 255, 1)')).toBe('#ffffff')
 })
+
+/*------------------ Error handling ----------------------*/
+test('convert Rgb to hex 343 343 343', () => {
+    expect(convertRgbToHex('343 343 343')).toBe('#nullnullnull')
+})
+
+test('convert Rgb to hex rgba(343 343 343)', () => {
+    expect(convertRgbToHex('rgba(343 343 343)')).toBe('#nullnullnull')
+})
+

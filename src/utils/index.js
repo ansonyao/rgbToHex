@@ -2,17 +2,14 @@ const convertRgbToHex = (rgb) => {
     if (!rgb) {
         return
     }
-    console.log("rgb " + rgb)
     let regex = /^.*?\b(\d{1,3})[ ,]+(\d{1,3})[ ,]+(\d{1,3})\b.*?$/
     const regexResult =regex.exec(rgb)
-    console.log("regexResult " + regexResult)
     if(regexResult && regexResult.length > 0) {
         const hexDict = {
             r: decimalValueToHexString(parseInt(regexResult[1], 10)),
             g: decimalValueToHexString(parseInt(regexResult[2], 10)),
             b: decimalValueToHexString(parseInt(regexResult[3], 10))
         }
-        console.log("hexDict " + hexDict)
         return `#${hexDict.r}${hexDict.g}${hexDict.b}`
     }
 }
@@ -82,6 +79,11 @@ const decimalValueToHexString = (value) => {
     }
     if (result.length > 2 || result.length < 1) {
         console.log("Error in decimalValueToHexString")
+        return null
+    }
+    if (value < 0 || value > 255) {
+        console.log("Rgb value should be between 0 - 255")
+        return null
     }
     return result
 }
