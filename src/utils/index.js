@@ -33,7 +33,7 @@ const convertHexToRgb = (hex) => {
 
 /* -------------- Regex Helpers --------------- */
 const findLength6HexString = (hex) => {
-    const regex = /^.*([A-Fa-f0-9]{6}).*$/ //When it is hex string of 6 characters 
+    const regex = /^.*?([A-Fa-f0-9]{6}).*?$/ //When it is hex string of 6 characters 
     const regexResult = regex.exec(hex)
     if (regexResult && regexResult.length > 0) {
         return  regexResult[1]
