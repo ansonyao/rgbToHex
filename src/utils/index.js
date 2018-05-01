@@ -3,7 +3,7 @@ const convertRgbToHex = (rgb) => {
         return
     }
     console.log("rgb " + rgb)
-    let regex = /^(\d{1,3})[ ,]*(\d{1,3})[ ,]*(\d{1,3})$/
+    let regex = /^.*?\b(\d{1,3})[ ,]+(\d{1,3})[ ,]+(\d{1,3})\b.*?$/
     const regexResult =regex.exec(rgb)
     console.log("regexResult " + regexResult)
     if(regexResult && regexResult.length > 0) {
@@ -12,6 +12,7 @@ const convertRgbToHex = (rgb) => {
             g: decimalValueToHexString(parseInt(regexResult[2], 10)),
             b: decimalValueToHexString(parseInt(regexResult[3], 10))
         }
+        console.log("hexDict " + hexDict)
         return `#${hexDict.r}${hexDict.g}${hexDict.b}`
     }
 }
@@ -33,6 +34,7 @@ const convertHexToRgb = (hex) => {
     }
 }
 
+/* -------------- Regex Helpers --------------- */
 const findLength6HexString = (hex) => {
     const regex = /^.*([A-Fa-f0-9]{6}).*$/ //When it is hex string of 6 characters 
     const regexResult = regex.exec(hex)
@@ -60,7 +62,6 @@ const findLength3HexString = (hex) => {
     }
 }
 
-
 const hexStringToRgbString = (hexString) => {
     let regex = /^([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})([A-Fa-f0-9]{2})$/
     var result = regex.exec(hexString)
@@ -72,6 +73,8 @@ const hexStringToRgbString = (hexString) => {
     } : null; 
 }
 
+
+/* -------------- String Helpers --------------- */
 const decimalValueToHexString = (value) => {
     let result = value.toString(16)
     if (result.length === 1) {
