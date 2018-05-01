@@ -14,19 +14,19 @@ export default class MainPage extends React.Component {
     }
     render() {
         return (
-            <div style={{ textAlign: 'center' }}>
-                <div style={{ width: '100%', height: 100, backgroundColor: '#FF5722' }}>
-                    <div style={{ paddingTop: 20 }}>
+            <div style={{  display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ width: '100%', height: 100, backgroundColor: '#FF5722', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div style={{ paddingTop: 20  }}>
                         <text style={{ color: 'white', fontSize: 60, fontWeight: 'bold' }}>RGB &lt;==&gt; HEX</text>
                     </div>
                 </div>
-                <div>
-                </div>
 
-                <div style={{ marginTop: 200 }}>
+                <div style={{width: 100, height: 100, borderRadius: 50, backgroundColor: this.state.hexValue, marginTop: 150}}/>
+
+                <div style={{ marginTop: 20 }}>
                     <TextField
                         className="MyTextField"
-                        hintText="Value like rgb(0, 0, 0) or simply 0, 0, 0 or 0 0 0"
+                        hintText="Values like rgb(0, 0, 0) or simply 0, 0, 0 or 0 0 0"
                         floatingLabelText="RGB"
                         errorText={this.state.rgbError}
                         errorStyle={{textAlign: 'left'}}
@@ -42,7 +42,7 @@ export default class MainPage extends React.Component {
                     />
                     <TextField
                         className="MyTextField"
-                        hintText="Value like #000000, 0x000000, or 000000, "
+                        hintText="Values like #000000, 0x000000, or 000000, "
                         floatingLabelText="HEX"
                         errorText={this.state.hexError}
                         errorStyle={{textAlign: 'left'}}
@@ -51,7 +51,11 @@ export default class MainPage extends React.Component {
                         hintStyle={{ fontSize: 15, marginBottom: 30 }}
                         floatingLabelFixed={true}
                         onChange={(event, value) => {
-                            this.setState({hexValue: value})
+                            let inputString = value
+                            if (!inputString.startsWith("#")){
+                                inputString = "#" + inputString
+                            }
+                            this.setState({hexValue: inputString})
                             this._convertHexToRgb(value)
                         }}
                         value={this.state.hexValue}
